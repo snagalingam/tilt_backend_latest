@@ -1,0 +1,19 @@
+# dependencies
+*/node_modules/*
+
+# elastic beanstalk files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# environment files
+*.env*
+
+# mac files
+*.DS_Store
+
+# python
+__pycache__/
+
+# vs code
+*.vscode/*
