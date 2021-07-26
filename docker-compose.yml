@@ -13,6 +13,7 @@ services:
       - DATABASE_PASSWORD=postgres
       - DATABASE_USER=postgres
       - DEBUG=1
+      - ENVIRONMENT=development
       - SECRET_KEY=Be8e94Q@A#P2qW6MAWSD8Ar@nc!qV
     ports:
       - 8000:8000
