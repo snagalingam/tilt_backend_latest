@@ -1,9 +1,16 @@
 from rest_framework import serializers
-from users.models import CustomerUser
+from users.models import User, UserDetail
 
 
-class CustomerUserSerializer(serializers.ModelSerializer):
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserDetail
+        fields = ('customer', 'unique_id', 'preferred_name', 'program')
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    detail = UserDetailSerializer(required=True)
 
     class Meta:
-        model = CustomerUser
-        fields = ('unique_id','preferred_name','program')
+        model = User
+        fields = ('email', 'detail')

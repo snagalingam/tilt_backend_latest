@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-DEFAULT_CUSTOMER_ID = 1
 DEFAULT_USER_ID = 1
 
 ################################################################################
@@ -99,35 +98,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 ################################################################################
-# Customer
+# UserDetail
 ################################################################################
-class Customer(models.Model):
-    name = models.CharField(max_length=255)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+class UserDetail(models.Model):
+    CUSTOMER_CHOICES = (
+        ("northwestern", "northwestern"),
+    )
 
-    class Meta:
-        verbose_name = "customer"
-        verbose_name_plural = "customers"
-
-    def __str__(self):
-        return self.name
-
-
-################################################################################
-# CustomerUser
-################################################################################
-class CustomerUser(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User,
         default=DEFAULT_USER_ID,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='detail'
     )
-    customer = models.ForeignKey(
-        Customer,
-        default=DEFAULT_CUSTOMER_ID,
-        on_delete=models.CASCADE
-    )
+    customer = models.CharField(choices=CUSTOMER_CHOICES, max_length=100)
     unique_id = models.CharField(max_length=255, blank=True)
     preferred_name = models.CharField(max_length=255, blank=True)
     program = models.CharField(max_length=255, blank=True)
@@ -135,8 +119,8 @@ class CustomerUser(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "customer user"
-        verbose_name_plural = "customer users"
+        verbose_name = "user detail"
+        verbose_name_plural = "user details"
 
     def __str__(self):
         return str(self.user)
