@@ -10,19 +10,22 @@ DEBUG = os.environ.get('DEBUG', default=0)
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+
+################################################################################
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+################################################################################
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-
+################################################################################
+# Allowed hosts
+################################################################################
 ALLOWED_HOSTS = []
 
 
+################################################################################
 # Application definition
-
+################################################################################
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,10 +33,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # local
+    'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
+
+    # added
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
+    "django_samesite_none.middleware.SameSiteNoneMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,9 +93,15 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+################################################################################
+# Authentication
+################################################################################
+AUTH_USER_MODEL = 'users.User'
 
+
+################################################################################
+# Password Validation
+################################################################################
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -97,17 +118,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+################################################################################
 # Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
+################################################################################
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+TIME_ZONE = 'America/Los_Angeles'
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -116,7 +133,8 @@ USE_TZ = True
 ################################################################################
 STATIC_URL = '/static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
+################################################################################
+# Default primary key field type
+################################################################################
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

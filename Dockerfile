@@ -16,5 +16,8 @@ RUN pip install pipenv && pipenv install --system
 # Add the rest of the code
 COPY . $APP_HOME/
 
+# Run entrypoint.sh that verifies that Postgres is healthy before applying the migrations
+ENTRYPOINT ["sh", "entrypoint.sh"]
+
 # expose port
 EXPOSE 8000
