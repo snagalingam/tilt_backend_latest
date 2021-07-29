@@ -10,14 +10,16 @@ DEBUG = os.environ.get('DEBUG', default=0)
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+
+################################################################################
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+################################################################################
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-
+################################################################################
+# Allowed hosts
+################################################################################
 ALLOWED_HOSTS = []
 
 
@@ -32,12 +34,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #local
+    # local
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
+
+    # added
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
+    "django_samesite_none.middleware.SameSiteNoneMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
