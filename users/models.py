@@ -4,6 +4,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+DEFAULT_CUSTOMER_ID = 1
+DEFAULT_USER_ID = 1
+
+################################################################################
+# User
+################################################################################
 class UserManager(BaseUserManager):
     """ User manager for User that allows users to be created """
 
@@ -35,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USER_CATEGORY_CHOICES = (
         ("tilt staff", "tilt staff"),
-        ("college staff", "college staff"),
+        ("customer", "customer"),
         ("student", "student"),
     )
     USERNAME_FIELD = "email"
@@ -90,3 +96,47 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+################################################################################
+# Customer
+################################################################################
+class Customer(models.Model):
+    name = models.CharField(max_length=255)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "customer"
+        verbose_name_plural = "customers"
+
+    def __str__(self):
+        return self.name
+
+
+################################################################################
+# CustomerUser
+################################################################################
+class CustomerUser(models.Model):
+    user = models.ForeignKey(
+        User,
+        default=DEFAULT_USER_ID,
+        on_delete=models.CASCADE
+    )
+    customer = models.ForeignKey(
+        Customer,
+        default=DEFAULT_CUSTOMER_ID,
+        on_delete=models.CASCADE
+    )
+    unique_id = models.CharField(max_length=255, blank=True)
+    preferred_name = models.CharField(max_length=255, blank=True)
+    program = models.CharField(max_length=255, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "customer user"
+        verbose_name_plural = "customer users"
+
+    def __str__(self):
+        return str(self.user)
