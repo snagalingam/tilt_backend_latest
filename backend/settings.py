@@ -100,7 +100,6 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
@@ -108,27 +107,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated'
     ],
 }
-
-################################################################################
-# JWT settings
-################################################################################
-REST_USE_JWT = False
-JWT_AUTH = {
-    # If the secret is wrong, it will raise a jwt.DecodeError telling you as such. You can still get at the payload by setting the JWT_VERIFY to False.
-    'JWT_VERIFY': True,
-
-    # You can turn off expiration time verification by setting JWT_VERIFY_EXPIRATION to False.
-    # If set to False, JWTs will last forever meaning a leaked token could be used by an attacker indefinitely.
-    'JWT_VERIFY_EXPIRATION': False,
-
-    # This is an instance of Python's datetime.timedelta. This will be added to datetime.utcnow() to set the expiration time.
-    # Default is datetime.timedelta(seconds=300)(5 minutes).
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
-
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
-}
-
 
 ################################################################################
 # Password

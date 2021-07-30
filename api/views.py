@@ -18,7 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action == 'retrieve':
             permission_classes = [IsLoggedInUserOrAdmin]
 
-        elif self.action == 'list' or self.action == 'destroy':
-            permission_classes = [IsAdminUser]
+        elif self.action == 'list':
+            permission_classes = [IsLoggedInUserOrAdmin]
 
         return [permission() for permission in permission_classes]
