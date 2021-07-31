@@ -3,4 +3,4 @@ build:
     web: Dockerfile.prod
 
 run:
-  web: PYTHONPATH="$PWD/" gunicorn tilt.wsgi
+  web: PYTHONPATH="$PWD/" gunicorn backend.wsgi
