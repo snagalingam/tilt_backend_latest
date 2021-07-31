@@ -16,6 +16,7 @@ django-rest-auth = "==0.9.5"
 django-cors-headers = "==3.7.0"
 django-samesite-none = "==0.0.3"
 dj-database-url = "==0.5.0"
+drfpasswordless = "==1.5.7"
 
 [requires]
 python_version = "3.9"
