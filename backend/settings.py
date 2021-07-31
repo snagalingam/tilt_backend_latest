@@ -91,7 +91,7 @@ if ENVIRONMENT == 'development':
             'PORT': 5432,
         }
     }
-    
+
 # database for staging and production with SSL
 if ENVIRONMENT == 'production':
     DATABASES = {
@@ -326,8 +326,8 @@ elif ENVIRONMENT == 'production':
         '0.0.0.0',
         '.amazonaws.com',
         '.elasticbeanstalk.com',
+        '.herokuapp.com',
         '.tiltaccess.com',
-        '.tiltstaging.com',
         '.tiltstaging.dev',
     ]
     CSRF_COOKIE_SECURE = True
