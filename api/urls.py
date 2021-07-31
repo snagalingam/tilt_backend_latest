@@ -7,5 +7,6 @@ router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('auth/', include('rest_auth.urls')),
+    path('', include('drfpasswordless.urls')),
     path(r'', include(router.urls)),
 ]

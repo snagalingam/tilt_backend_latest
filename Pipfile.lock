@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "13ea2a7454f75b98c5240ae4142404cb27dacd4f25ef7bea09d822cc51fbe968"
+            "sha256": "5f2b37a3dd7bcf0c6336eb12b64e7dc1dea785aa65c80048e86731f000c91f8f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -85,6 +85,14 @@
             ],
             "index": "pypi",
             "version": "==3.12.4"
+        },
+        "drfpasswordless": {
+            "hashes": [
+                "sha256:48a672fb974a2a85dd9f279b9d8252008ea12a8bdd1b0c76da8c6b954fe2c8c6",
+                "sha256:f5c9355c35b41e9666920647225a0e69c515d9397b2e4a3b2a503141a3b6eb91"
+            ],
+            "index": "pypi",
+            "version": "==1.5.7"
         },
         "graphene": {
             "hashes": [
