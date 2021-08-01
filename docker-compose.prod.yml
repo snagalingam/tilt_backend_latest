@@ -12,10 +12,13 @@ services:
       - DATABASE_PASSWORD=6hK3&ABsYZ8S6Z
       - DATABASE_USER=tilt
       - DEBUG=0
-      - ENVIRONMENT=development
+      - ENVIRONMENT=production
       - SECRET_KEY=593zDT!%DvVUan%husB73vYG3Sd3z4QM5
       - SENDGRID_API_KEY=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
     ports:
       - 8000:8000
     volumes:
-      - .:/app
+      - static_volume:/home/app/staticfiles
+
+volumes:
+  static_volume:
