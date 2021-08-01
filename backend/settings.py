@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic', #added
     'django.contrib.staticfiles',
 
     # added
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', #added
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #added
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -79,6 +81,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 ################################################################################
 # Database
 ################################################################################
+# certificate files when connecting to staging or production database
+CA_CERT_PATH = f".postgresql/staging/ca-cert.pem"
+CLIENT_CERT_PATH = f".postgresql/staging/client-cert.pem"
+CLIENT_KEY_PATH = f".postgresql/staging/client-key.pem"
+
 # database for development without SSL
 if ENVIRONMENT == 'development':
     DATABASES = {
@@ -104,6 +111,9 @@ if ENVIRONMENT == 'production':
             'PORT': 5432,
             'OPTIONS':{
                 'sslmode':'verify-ca'
+                # 'sslcert': CLIENT_CERT_PATH,
+                # 'sslkey': CLIENT_KEY_PATH,
+                # 'sslrootcert': CA_CERT_PATH
             }
         }
     }
@@ -272,11 +282,6 @@ USE_TZ = True
 ################################################################################
 SITE_ID = 1
 
-################################################################################
-# Static files (CSS, JavaScript, Images)
-################################################################################
-STATIC_URL = '/static/'
-
 
 ################################################################################
 # Default primary key field type
@@ -341,3 +346,11 @@ elif ENVIRONMENT == 'production':
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     X_FRAME_OPTIONS = 'DENY'
+
+
+################################################################################
+# Static files (CSS, JavaScript, Images)
+################################################################################
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = os.path.join(BASE_DIR, "../", "staticfiles")
