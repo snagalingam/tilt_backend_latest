@@ -303,11 +303,13 @@ SESSION_COOKIE_SAMESITE = 'lax'
 ################################################################################
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
+    "https://demo.tiltaccess.com",
     "https://tiltaccess.com",
     "https://www.tiltaccess.com",
     "https://tiltstaging.dev"
 ]
 CSRF_TRUSTED_ORIGINS = [
+    "demo.tiltaccess.com",
     "tiltaccess.com",
     "www.tiltaccess.com",
     "tiltstaging.dev",
