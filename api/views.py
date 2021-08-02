@@ -22,3 +22,6 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [IsLoggedInUserOrAdmin]
 
         return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        return User.objects.filter(email=self.request.user.email)
